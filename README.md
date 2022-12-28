@@ -6,6 +6,7 @@ This simple app extracts data from a two dimentional array representing the fina
 
 The result is formatted by the function `printResults()`. It uses the rest parameter to pass in any number of arguments. Around this central function are a number of helper functions, each one designed to produce one output.
 Finally, on line 138, we log the results of the function. As an added bonus I add the results to the DOM by capturing the target p element and inserting the text which results from calling the `printResults()` function into it.
+I also wrapped the whole thing in an IIFE to make sure no local variable clashes with any hypothetical outside code.
 
 <!-- Original ReadMe from the starter folder
 In this challenge, you'll be using the concepts you've learned to complete the required activity. This activity presents a real-world situation in which your newfound JavaScript skills will come in handy. You are tasked with creating code for analyzing the financial records of a company. You have been provided with a financial dataset in the `starter/index.js` file.
