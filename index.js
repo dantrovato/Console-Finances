@@ -87,31 +87,40 @@ var finances = [
   ["Feb-2017", 671099],
 ];
 
+// get total of all the profit/losses from finances array
 function getTotal() {
   let total = 0;
-  finances.forEach((sub) => (total += sub[1])); // refactor using reduce()
+  finances.forEach((sub) => (total += sub[1]));
   return total;
 }
 
 function getAverage() {
   // grab all the changes in profit
-  // adding this first profit from the finances array makes
-  // net 0 sense and made me angry but this is the only way we get to match the result
+  // adding this first profit from the finances array and putting it in the changes array makes
+  // no sense to me but this is the way we get to match the expected result
 
   finances.map((_, index) => {
+    // skip first item
     if (index === 0) return;
+
+    // push into the changes array the difference between current month and the previous
     const currentMonth = finances[index][1];
     const previousMonth = finances[index - 1][1];
     changes.push(currentMonth - previousMonth);
   });
 
+  // sum up the total of the changes array
   const changesTotal = changes.reduce((a, b) => a + b);
-  const changesAverage = (changesTotal / finances.length).toFixed(2);
+
+  // get the arerage of the changes array by dividing the changesTotal by the length
+  const changesAverage = (changesTotal / changes.length).toFixed(2);
+
   return changesAverage;
 }
 
-function getMonth(item) {
-  return finances[item][0];
+// get the date corresponding to the index provided
+function getMonth(index) {
+  return finances[index][0];
 }
 
 function printResults(...args) {
@@ -127,6 +136,11 @@ function printResults(...args) {
 }
 
 const totalMonths = finances.length;
+
+// the number in changes is the first number in finance. Passing this initial value in produces the desired
+// result. I suspect there's an error in the figure we are expected to produce as including this value
+// doesn't make sense
+
 const changes = [867884];
 const total = getTotal();
 const changesAverage = getAverage(finances);
@@ -147,6 +161,7 @@ console.log(
   )
 );
 
+// insert the result into the DOM
 const p = document.querySelector("p");
 p.innerText = printResults(
   totalMonths,
